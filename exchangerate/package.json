@@ -1,0 +1,23 @@
+{
+  "name": "com.task",
+  "version": "1.0.0",
+  "description": "task",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "graphql"
+  ],
+  "author": "jihyeok",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.11.1",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.6.0",
+    "mongodb": "^4.12.1",
+    "mongoose": "^6.8.0"
+  }
+}
