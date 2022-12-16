@@ -5,6 +5,7 @@ const resolver = {
     Query: {
         async getExchangeRate(_, args){
             try {
+            // find 함수를 통한 객체 탐색
               const rate = await Rate.find(args);
               return rate;
             } catch (err) {
@@ -15,9 +16,10 @@ const resolver = {
     },
     Mutation: {
         async postExchangeRate(_, args) {
-            await waitForMongooseConnection(mongoose);
+            // 세션 시작
             const session = await startSession();
             try {
+                // Transaction 포함 코드 구현
                 await session.withTransaction(
                     async (session) => { const rate = new Rate({
                         src: args.info.name,
@@ -25,7 +27,9 @@ const resolver = {
                         rate: args.info.rate,
                         date: args.info.date,
                     });
+                    // 생성한 객체 저장
                     const result = await rate.save({ session });
+                    // 데이터베이스에 Transaction 커밋
                     await session.commitTransaction(); },
                 transactionOptions);
                 
@@ -35,6 +39,7 @@ const resolver = {
                 console.log(error);
                 throw error;
             } finally {
+                // 세션 종료
                 await session.endSession();
             }
         },
